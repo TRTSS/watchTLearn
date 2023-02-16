@@ -1,0 +1,26 @@
+{% extends 'Base/base.html' %}
+
+{% block content %}
+
+    <div class="container d-flex h-100 justify-content-center align-items-center">
+        <div class="p-4 rounded w-50">
+            <h1>TLearn.Watch</h1>
+            <h5>от TLearn</h5>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-outline mb-4">
+                    <input type="email" id="emailLogin" class="form-control" placeholder="Email" name="email">
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="password" id="passwordLogin" class="form-control" placeholder="Пароль" name="password">
+                </div>
+
+                <p class="text-{{ messageType }}">{{ message }}</p>
+
+                <input type="submit" value="Войти" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

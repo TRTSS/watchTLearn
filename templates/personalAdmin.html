@@ -1,0 +1,65 @@
+{% extends 'Base/personalBase.html' %}
+
+{% block content %}
+
+    <p>Сообщение: {{ message }}</p>
+    {% if message is not None %}
+        <div class="modal fade" id="serverMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Сообщение</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                {{ message }} {{ nPassword }}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script>
+        var myModal = new bootstrap.Modal(document.getElementById('serverMessage'), {
+              keyboard: false
+            });
+        myModal.toggle();
+        </script>
+    {% endif %}
+    <div class="d-flex">
+        <div class="border rounded p-4 m-2">
+            <h3>Пользователи</h3>
+            <p type="button" class="text-muted" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#addUserModal"><i class='bx bxs-add-to-queue'></i> Добавить</p>
+            {% for u in users %}
+                <p>- {{ u.fullname }}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Новый пользователь</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form method="POST">
+                {% csrf_token %}
+              <div class="mb-3">
+                <label for="user-email" class="col-form-label">Эл. адрес:</label>
+                <input type="text" class="form-control" id="user-email" name="newUserEmail">
+              </div>
+              <div class="mb-3">
+                <label for="user-fullname" class="col-form-label">Эл. адрес:</label>
+                <input type="text" class="form-control" id="user-fullname" name="newUserFullname">
+              </div>
+                <input type="submit" class="btn btn-primary" name="newUserBtn" value="Добавить">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
